@@ -36,7 +36,7 @@ type UnlockerConfig struct {
 const minDepth = 16
 
 // Donate 1% from pool fees to developers
-const donationFee = 1.0
+const donationFee = 0.0
 const donationAccount = "0xd97e0075Abe7dC9e12805345336340649b8658Df"
 
 // params for etchash
@@ -96,6 +96,8 @@ func NewBlockUnlocker(cfg *UnlockerConfig, backend *storage.RedisClient, network
 	} else if network == "etica" {
 		// nothing needs configuring here, simply proceed.
 	} else if network == "callisto" {
+		// nothing needs configuring here, simply proceed.
+	} else if network == "jibchain" {
 		// nothing needs configuring here, simply proceed.
 	} else if network == "ubiq" {
 		// nothing needs configuring here, simply proceed.
@@ -296,7 +298,7 @@ func (u *BlockUnlocker) handleBlock(block *rpc.GetBlockReply, candidate *storage
 		rewardForUncles := big.NewInt(0).Mul(uncleReward, big.NewInt(int64(len(block.Uncles))))
 		reward.Add(reward, rewardForUncles)
 
-	} else if u.config.Network == "etica" {
+	} else if u.config.Network == "etica" || u.config.Network == "jibchain" {
 		reward = getConstRewardetica(candidate.Height)
 		// Add reward for including uncles
 		uncleReward := new(big.Int).Div(reward, big32)
@@ -350,7 +352,7 @@ func handleUncle(height int64, uncle *rpc.GetBlockReply, candidate *storage.Bloc
 		reward = getUncleRewardUbiq(new(big.Int).SetInt64(uncleHeight), new(big.Int).SetInt64(height), getConstRewardUbiq(height))
 	} else if cfg.Network == "expanse" {
 		reward = getUncleRewardUbiq(new(big.Int).SetInt64(uncleHeight), new(big.Int).SetInt64(height), getConstRewardExpanse(height))
-	} else if cfg.Network == "etica" {
+	} else if cfg.Network == "etica" || cfg.Network == "jibchain" {
 		reward = getUncleRewardEthereum(new(big.Int).SetInt64(uncleHeight), new(big.Int).SetInt64(height), getConstRewardetica(height))
 	} else if cfg.Network == "callisto" {
 		reward = getUncleRewardEthereum(new(big.Int).SetInt64(uncleHeight), new(big.Int).SetInt64(height), getConstRewardcallisto(height))
