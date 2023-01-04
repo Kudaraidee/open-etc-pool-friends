@@ -99,6 +99,8 @@ func NewBlockUnlocker(cfg *UnlockerConfig, backend *storage.RedisClient, network
 		// nothing needs configuring here, simply proceed.
 	} else if network == "jibchain" {
 		// nothing needs configuring here, simply proceed.
+	} else if network == "pomnetwork" {
+		// nothing needs configuring here, simply proceed.
 	} else if network == "ubiq" {
 		// nothing needs configuring here, simply proceed.
 	} else {
@@ -305,6 +307,13 @@ func (u *BlockUnlocker) handleBlock(block *rpc.GetBlockReply, candidate *storage
 		rewardForUncles := big.NewInt(0).Mul(uncleReward, big.NewInt(int64(len(block.Uncles))))
 		reward.Add(reward, rewardForUncles)
 
+	} else if u.config.Network == "pomnetwork" {
+		reward = getConstRewardPOM(candidate.Height)
+		// Add reward for including uncles
+		uncleReward := new(big.Int).Div(reward, big32)
+		rewardForUncles := big.NewInt(0).Mul(uncleReward, big.NewInt(int64(len(block.Uncles))))
+		reward.Add(reward, rewardForUncles)
+
 	} else if u.config.Network == "callisto" {
 		reward = getConstRewardcallisto(candidate.Height)
 		// Add reward for including uncles
@@ -354,6 +363,8 @@ func handleUncle(height int64, uncle *rpc.GetBlockReply, candidate *storage.Bloc
 		reward = getUncleRewardUbiq(new(big.Int).SetInt64(uncleHeight), new(big.Int).SetInt64(height), getConstRewardExpanse(height))
 	} else if cfg.Network == "etica" || cfg.Network == "jibchain" {
 		reward = getUncleRewardEthereum(new(big.Int).SetInt64(uncleHeight), new(big.Int).SetInt64(height), getConstRewardetica(height))
+	} else if cfg.Network == "pomnetwork" {
+		reward = getUncleRewardEthereum(new(big.Int).SetInt64(uncleHeight), new(big.Int).SetInt64(height), getConstRewardPOM(height))
 	} else if cfg.Network == "callisto" {
 		reward = getUncleRewardEthereum(new(big.Int).SetInt64(uncleHeight), new(big.Int).SetInt64(height), getConstRewardcallisto(height))
 	} else if cfg.Network == "ethereum" || cfg.Network == "ropsten" || cfg.Network == "ethereumPow" || cfg.Network == "ethereumFair" {
@@ -759,6 +770,13 @@ func getConstRewardetica(height int64) *big.Int {
 	// Rewards)
 	// etica
 	return calcBigNumber(2.0)
+}
+
+// pomnetwork
+func getConstRewardPOM(height int64) *big.Int {
+	// Rewards)
+	// pomnetwork
+	return calcBigNumber(9.0)
 }
 
 // ubqhash expanse
