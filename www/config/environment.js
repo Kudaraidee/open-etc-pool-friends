@@ -15,23 +15,30 @@ module.exports = function(environment) {
   
       APP: {
         // API host and port
-        ApiUrl: '//192.168.178.27//',
+        ApiUrl: '//pom.evepool.pw//',
   
         // HTTP mining endpoint
-        HttpHost: 'http://192.168.178.27',
-        HttpPort: 8888,
+        HttpHost: 'http://pom.evepool.pw',
+        HttpPort: 7777,
   
         // Stratum mining endpoint
-        StratumHost: 'example.net',
-        StratumPort: 8008,
+        StratumHost: 'pom.evepool.pw',
+        StratumPort: 7007,
+
+        StratumHost_4g: 'pom.evepool.pw',
+        StratumPort_4g: 7009,
   
+        NicehashHost: 'pom.evepool.pw',
+        NicehashPort: 7010,
+
         // The ETC network
-        Unit: 'ETC',
+        CoinName: 'Proof Of Memes',
+        Unit: 'POM',
 
         // Fee and payout details
         PoolFee: '1%',
-        PayoutThreshold: '0.5 ETC',
-        BlockReward: 2.56,
+        PayoutThreshold: '0.01 POM',
+        BlockReward: 9,
   
         // For network hashrate (change for your favourite fork)
         BlockTime: 13.2
