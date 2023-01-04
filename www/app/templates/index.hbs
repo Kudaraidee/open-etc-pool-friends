@@ -5,12 +5,12 @@
         <div class="row">
           <h1 style="font-size: 24px">
             <div class="etc-green">
-              <strong><span class="logo-2">ETC Pool</span></strong>
+              <strong><span class="logo-2">{{config.CoinName}}[{{config.Unit}}] Mining Pool</span></strong>
             </div>
           </h1>
         </div>
         <div class="row" style="padding:15px 5px;">
-          <strong>Min. payout threshold: {{config.PayoutThreshold}}</strong>, Payouts are continuos throughout the  day.
+          <strong>Min. payout threshold: {{config.PayoutThreshold}}</strong>, Payout every 20 minutes.
           <br/>
           <span class="label label-success">PPLNS</span> Stable and profitable pool with regular payouts.
         </div>
@@ -39,7 +39,7 @@
   <div class="stats">
     <h4>Your Stats &amp; Payment History</h4>
     <div class="input-group">
-      {{input value=cachedLogin class="form-control" placeholder="Enter Your Ethereum Classic Address"}}
+      {{input value=cachedLogin class="form-control" placeholder="Enter Your Wallet Address"}}
       <span class="input-group-btn">
         <button class="btn btn-primary btn-etc" type="button" {{action 'lookup' cachedLogin}}>
           <span style="display: inline;"><i class="fa fa-search"></i> Lookup</span>
@@ -54,20 +54,310 @@
   <div class="container">
   {{high-charts mode=mode chartOptions=chartDiff content=chartData}}
 </div>
-    <div class="jumbotron">
-      <div class="container">
-        <h3 class="text-center" style="padding: 0 0 5px 0; margin: 0 0 40px 0;"> Instructions</h3>
-        <div class="row">
-          <div class="col-md-12">
-            <p class="lead text-center">
-              <a href="#/help" class="ul-link">
-                <span class="ul ul-danger">stratum</span><br />
-                <code>{{config.StratumHost}}:{{config.StratumPort}}</code>
-              </a>
-            </p>
-          </div>
-        </div>
+
+<div class="row">
+      <div class="col-md-4 col-sm-12">
+        <h5 class="note note-info text-center">
+          <span class="label label-success">2b</span>&nbsp;<a href="./#/help" title="CLICK FOR HELP"><b>WORKER &lt; 150 MH/s</b></a><br><br>
+          <b>(Personal & Miningrigrentals) (Password: x)</b><br><br>
+          <b>Stratum Mining:</b><br><br>
+	  <code>stratum+tcp://{{config.StratumHost}}:{{config.StratumPort}}</code><br><br>
+       </h5>
+      </div>
+      <div class="col-md-4 col-sm-12">
+        <h5 class="note note-info text-center">
+          <span class="label label-success">4b</span>&nbsp;<a href="./#/help" title="CLICK FOR HELP"><b>WORKER &gt;=150 MH/s</b></a>
+          <br><br>
+          <b>(Personal & Miningrigrentals) (Password: x)</b><br><br>
+          <b>Stratum Mining:</b><br><br>
+       	  <code>stratum+tcp://{{config.StratumHost_4g}}:{{config.StratumPort_4g}}</code><br><br>
+      </h5>
+
+      </div>
+      <div class="col-md-4 col-sm-12">
+        <h5 class="note note-info text-center">
+          <span class="label label-success">10b</span>&nbsp;<a href="./#/help" title="CLICK FOR HELP"><b>WORKER / NICEHASH &gt;= 800 MH/s</b></a>
+          <br><br>
+          <b>(Nicehash Password: #)</b><br><br>
+          <b>Stratum Mining:</b><br><br>
+	  <code>stratum+tcp://{{config.NicehashHost}}:{{config.NicehashPort}}</code><br><br>
+       </h5>
       </div>
     </div>
+
+
+    <div class="row command_lines">
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#windows_settings" aria-controls="home" role="tab" data-toggle="tab">Windows</a></li>
+        <li role="presentation"><a href="#smos_settings" aria-controls="profile" role="tab" data-toggle="tab">Simple Mining</a></li>
+        <!--
+        <li role="presentation"><a href="#hiveos_settings" aria-controls="messages" role="tab" data-toggle="tab">HiveOS</a></li>
+        <li role="presentation"><a href="#ethos_settings" aria-controls="settings" role="tab" data-toggle="tab">EthOS</a></li>
+      -->
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="windows_settings">
+          <div style="padding:15px;">
+            <h5>Add this to your bat file</h5>
+            <div class="panel-group" id="windows_settings_windows_tab" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="win_headingOne">
+                <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#windows_settings_windows_tab" href="#win_collapseOne" aria-expanded="true" aria-controls="win_collapseOne">
+                    PhoenixMiner
+                  </a>
+                </h4>
+              </div>
+              <div id="win_collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                      <input type="text" class="form-control" value="PhoenixMiner.exe -coin eth -pool {{config.StratumHost}}:{{config.StratumPort}} -wal &lt;YOUR_WALLET_ADDRESS&gt; -worker <RIG_ID> -epsw x">
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="win_headingTwo">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#windows_settings_windows_tab" href="#win_collapseTwo" aria-expanded="false" aria-controls="win_collapseTwo">
+                    Ethminer
+                  </a>
+                </h4>
+              </div>
+              <div id="win_collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                      <input type="text" class="form-control" value="ethminer.exe -U -P stratum://&lt;YOUR_WALLET_ADDRESS&gt;.&lt;RIG_ID&gt;@{{config.StratumHost}}:{{config.StratumPort}}">
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="win_headingThree">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#windows_tab" href="#win_collapseThree" aria-expanded="false" aria-controls="win_collapseThree">
+                    T-Rex
+                  </a>
+                </h4>
+              </div>
+              <div id="win_collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="win_headingThree">
+                <div class="panel-body">
+                      <input type="text" class="form-control" value="t-rex.exe -a ethash --coin {{config.Unit}} -o stratum+tcp://{{config.StratumHost}}:{{config.StratumPort}} -u &lt;YOUR_WALLET_ADDRESS&gt;.&lt;RIG_ID&gt; -p x">
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="win_headingFour">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#windows_tab" href="#win_collapseFour" aria-expanded="false" aria-controls="win_collapseFour">
+                    GMiner
+                  </a>
+                </h4>
+              </div>
+              <div id="win_collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="win_headingFour">
+                <div class="panel-body">
+                      <input type="text" class="form-control" value="miner.exe --algo ethash --server {{config.StratumHost}}:{{config.StratumPort}} --user &lt;YOUR_WALLET_ADDRESS&gt;.&lt;RIG_ID&gt;">
+                </div>
+              </div>
+            </div>
+            <!--<div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="win_headingFour">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#windows_tab" href="#win_collapseFour" aria-expanded="false" aria-controls="win_collapseFour">
+                    GMiner
+                  </a>
+                </h4>
+              </div>
+              <div id="win_collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="win_headingFour">
+                <div class="panel-body">
+                      <input type="text" class="form-control" value="miner.exe --algo ethash --server {{config.StratumHost}}:{{config.StratumPort}} --user &lt;YOUR_WALLET_ADDRESS&gt;.&lt;RIG_ID&gt;">
+                </div>
+              </div>
+            </div>-->
+          </div>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="smos_settings">
+          <div style="padding:15px;">
+            <h5>Add this into your new Rig Group</h5>
+            <div class="panel-group" id="smos_settings_smos_tab" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="smos_headingOne">
+                <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#smos_settings_smos_tab" href="#smos_collapseOne" aria-expanded="true" aria-controls="smos_collapseOne">
+                    PhoenixMiner
+                  </a>
+                </h4>
+              </div>
+              <div id="smos_collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                      <input type="text" class="form-control" value="-coin eth -pool {{config.StratumHost}}:{{config.StratumPort}} -wal &lt;YOUR_WALLET_ADDRESS&gt; -worker <RIG_ID> -epsw x">
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="smos_headingTwo">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#smos_settings_smos_tab" href="#smos_collapseTwo" aria-expanded="false" aria-controls="smos_collapseTwo">
+                    Ethminer
+                  </a>
+                </h4>
+              </div>
+              <div id="smos_collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                      <input type="text" class="form-control" value="-U -P stratum://&lt;address&gt;.&lt;worker&gt;@{{config.StratumHost}}:{{config.StratumPort}} --api-port -3333">
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="smos_headingThree">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#smos_settings_smos_tab" href="#smos_collapseThree" aria-expanded="false" aria-controls="smos_collapseThree">
+                    T-Rex
+                  </a>
+                </h4>
+              </div>
+              <div id="smos_collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="smos_headingThree">
+                <div class="panel-body">
+                      <input type="text" class="form-control" value="-a ethash --coin {{config.Unit}} -o stratum+tcp://{{config.StratumHost}}:{{config.StratumPort}} -u &lt;address&gt;.&lt;worker&gt; -p x">
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="smos_headingFour">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#smos_settings_smos_tab" href="#smos_collapseFour" aria-expanded="false" aria-controls="smos_collapseFour">
+                    GMiner
+                  </a>
+                </h4>
+              </div>
+              <div id="smos_collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="smos_headingFour">
+                <div class="panel-body">
+                      <input type="text" class="form-control" value="--algo ethash --server {{config.StratumHost}}:{{config.StratumPort}} --user &lt;YOUR_WALLET_ADDRESS&gt;.&lt;RIG_ID&gt;">
+                </div>
+              </div>
+            </div>
+            <!--<div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="smos_headingFive">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#smos_settings_smos_tab" href="#smos_collapseFive" aria-expanded="false" aria-controls="smos_collapseFive">
+                    T-Rex
+                  </a>
+                </h4>
+              </div>
+              <div id="smos_collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="smos_headingFive">
+                <div class="panel-body">
+                      <input type="text" class="form-control" value="-a ethash --coin {{config.Unit}} -o stratum+tcp://{{config.StratumHost}}:{{config.StratumPort}} -u &lt;address&gt;.&lt;worker&gt; -p x">
+                </div>
+              </div>
+            </div>-->
+          </div>
+          </div>
+        </div>
+        <!--
+        <div role="tabpanel" class="tab-pane" id="hiveos_settings">
+          <div style="padding:15px;">
+            <h5>Choose your favorite miner</h5>
+            <div class="panel-group" id="windows_tab" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#windows_tab" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Claymore
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                      <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#windows_tab" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Ethminer 0.14
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                      <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#windows_tab" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Ethminer 0.15
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                      <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="ethos_settings">
+          <div style="padding:15px;">
+            <h5>Choose your favorite miner</h5>
+            <div class="panel-group" id="windows_tab" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#windows_tab" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Claymore
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                      <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#windows_tab" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Ethminer 0.14
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                      <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#windows_tab" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Ethminer 0.15
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                      <input type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      -->
+      </div>
+
+    </div>
+
+
   </div>
 </div>

@@ -15,23 +15,30 @@ module.exports = function(environment) {
   
       APP: {
         // API host and port
-        ApiUrl: '//192.168.178.27//',
+        ApiUrl: '//jbc.evepool.pw//',
   
         // HTTP mining endpoint
-        HttpHost: 'http://192.168.178.27',
+        HttpHost: 'http://jbc.evepool.pw',
         HttpPort: 8888,
   
         // Stratum mining endpoint
-        StratumHost: 'example.net',
+        StratumHost: 'jbc.evepool.pw',
         StratumPort: 8008,
+
+        StratumHost_4g: 'jbc.evepool.pw',
+        StratumPort_4g: 8009,
   
+        NicehashHost: 'jbc.evepool.pw',
+        NicehashPort: 8010,
+
         // The ETC network
-        Unit: 'ETC',
+        CoinName: 'JBC',
+        Unit: 'JBC',
 
         // Fee and payout details
         PoolFee: '1%',
-        PayoutThreshold: '0.5 ETC',
-        BlockReward: 2.56,
+        PayoutThreshold: '0.01 JBC',
+        BlockReward: 2,
   
         // For network hashrate (change for your favourite fork)
         BlockTime: 13.2
