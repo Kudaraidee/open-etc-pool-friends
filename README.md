@@ -39,8 +39,10 @@ Dependencies:
   * nginx
 
 **I highly recommend to use Ubuntu 20.04 LTS.**
-
-First install  [core-geth](https://github.com/etclabscore/core-geth/releases).
+ 1. First install:  sudo apt-get install build-essential
+ 2. install   sudo apt-get install make
+ 3. install   sudo apt-get install git
+ 4. install  [core-geth](https://github.com/etclabscore/core-geth/releases).
 
 Clone & compile:
 
@@ -49,16 +51,16 @@ Clone & compile:
     
     git clone https://github.com/yuriy0803/open-etc-pool-friends.git
     cd open-etc-pool-friends
-    cd build
-    chmod 755 env.sh
-    cd ..
-    make
+   
+    go build
+
+
 
 Install redis-server.
 
 ### Running Pool
 
-    ./build/bin/open-etc-pool-friends api.json
+    ./open-etc-pool-friends api.json
 
 You can use Ubuntu upstart - check for sample config in <code>upstart.conf</code>.
 
